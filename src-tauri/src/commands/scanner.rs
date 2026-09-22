@@ -1,6 +1,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 use crate::models::application::Application;
+use crate::commands::applications::Applications;
 
 /// Structure responsable de la recherche et du scan des applications installées sur le système.
 pub struct AppScanner;
@@ -9,7 +10,7 @@ impl AppScanner {
 	/// Méthode récursive privée qui parcourt un dossier donné pour trouver tous les fichiers `.lnk`.
 	fn scanner_dossier(
 		dossier: &Path, 
-		liste_apps: &mut Vec<Application>, 
+		applications: &mut Applications, 
 		next_id: &mut usize
 	) {
 		// Tente de lire le contenu du dossier. Si le dossier n'existe pas ou n'est pas accessible, on ignore l'erreur.
@@ -20,7 +21,7 @@ impl AppScanner {
 
 				// Si l'entrée est un sous-dossier, on effectue un appel récursif pour fouiller dedans.
 				if path.is_dir() {
-					Self::scanner_dossier(&path, liste_apps, next_id);
+					Self::scanner_dossier(&path, applications, next_id);
 				} 
 				// Sinon, si le fichier a l'extension ".lnk" (raccourci Windows)
 				else if path.extension().and_then(|s| s.to_str()) == Some("lnk") {
@@ -39,7 +40,7 @@ impl AppScanner {
 							&& !nom_lower.contains("file explorer")
 						{
 							// Création et ajout de l'instance d'Application dans le vecteur
-							liste_apps.push(Application::new(
+							applications.add_application(Application::new(
 								*next_id,
 								nom.to_string(),
 								path.to_string_lossy().to_string(), // Convertit le PathBuf en String
@@ -55,26 +56,27 @@ impl AppScanner {
 	}
 
 	/// Méthode publique principale qui récupère toutes les applications installées dans le Menu Démarrer.
-	pub fn obetenir_toutes_les_applications() -> Vec<Application> {
-		let mut liste_apps = Vec::new();
+	pub fn scanner_systeme() -> Vec<Application> {
 		let mut current_id = 1;
+		let mut applications = Applications::new(Vec::new());
 
 		//Ajout en dur d application
-		liste_apps.push(Application::new(
+		applications.add_application(Application::new(
 			current_id,
 			"File Explorer".to_string(),
 			"explorer.exe".to_string(),
 		));
 		current_id += 1;
 
-		liste_apps.push(Application::new(
+		// Ajout d'autres applications
+		applications.add_application(Application::new(
 			current_id,
 			"notepad".to_string(),
 			"notepad.exe".to_string(),
 		));
 		current_id += 1;
 
-		liste_apps.push(Application::new(
+		applications.add_application(Application::new(
 			current_id,
 			"snippingtool".to_string(),
 			"snippingtool.exe".to_string(),
@@ -82,19 +84,26 @@ impl AppScanner {
 		current_id += 1;
 
 		let chemin_global = PathBuf::from(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs");
-		Self::scanner_dossier(&chemin_global, &mut liste_apps, &mut current_id);
+		Self::scanner_dossier(&chemin_global, &mut applications, &mut current_id);
 
 		// On récupère dynamiquement la variable d'environnement APPDATA (ex: C:\Users\rouge\AppData\Roaming)
 		if let Ok(appdata) = std::env::var("APPDATA") {
 			let chemin_user = PathBuf::from(appdata)
 				.join(r"Microsoft\Windows\Start Menu\Programs");
-			Self::scanner_dossier(&chemin_user, &mut liste_apps, &mut current_id);
+			Self::scanner_dossier(&chemin_user, &mut applications, &mut current_id);
 		}
 
 		// --- 3. TRI PAR ORDRE ALPHABÉTIQUE ---
 		// Trie la liste par nom d'application (en ignorant la casse)
-		liste_apps.sort_by(|a, b| a.get_name().to_lowercase().cmp(&b.get_name().to_lowercase()));
+		applications.get_tab_applications_mut().sort_by(|a, b| {
+			a.get_name().to_lowercase().cmp(&b.get_name().to_lowercase())
+		});
 
-		liste_apps
+		applications.into_inner()
 	}
+}
+
+#[tauri::command]
+pub fn obetenir_toutes_les_applications() -> Vec<Application> {
+    AppScanner::scanner_systeme()
 }

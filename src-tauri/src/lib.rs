@@ -6,10 +6,10 @@ mod models;
 mod commands;
 
 // 2. Imports des structures nécessaires
-use crate::models::file_manager::FileManager;
+use crate::commands::file_manager::FileManager;
 use crate::models::kapsule::Kapsule;
-use crate::models::kapsules::Kapsules;
-use crate::models::scanner::AppScanner;
+use crate::commands::kapsules::Kapsules;
+use crate::commands::scanner::obetenir_toutes_les_applications;
 use crate::commands::application_command::lancer_application;
 
 
@@ -103,7 +103,7 @@ pub fn run() {
 			// =========================================================================
 			//  RÉCUPÉRATION ET AFFICHAGE DES APPLICATIONS TROUVÉES VIA APPSCANNER
 			// =========================================================================
-			let applications = AppScanner::obetenir_toutes_les_applications();
+			let applications = obetenir_toutes_les_applications();
 
 			println!("\n=======================================================");
 			println!("  LISTE DES APPLICATIONS TROUVÉES ({})", applications.len());
