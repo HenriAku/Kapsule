@@ -10,6 +10,8 @@ use crate::commands::file_manager::FileManager;
 use crate::models::kapsule::Kapsule;
 use crate::commands::kapsules::Kapsules;
 use crate::commands::scanner::obetenir_toutes_les_applications;
+use crate::commands::kapsules::obetenir_toutes_les_kapsules;
+use crate::commands::kapsules::obetenir_kapsule_par_id;
 use crate::commands::application_command::lancer_application;
 
 
@@ -89,17 +91,6 @@ pub fn run() {
 				println!("Favorite : {}", kapsule_test.get_favorite());
 			}
 
-			// Test de filtrage
-			let kapsules_filtered = kapsules.get_kapsules_by_tag("tools");
-			for kapsule in kapsules_filtered {
-				println!("Name : {}", kapsule.get_name());
-			}
-
-			// Test de capsule récente
-			if let Some(kapsule_recent) = kapsules.get_kapsule_by_activation() {
-				println!("Name : {}", kapsule_recent.get_name());
-			}
-
 			// =========================================================================
 			//  RÉCUPÉRATION ET AFFICHAGE DES APPLICATIONS TROUVÉES VIA APPSCANNER
 			// =========================================================================
@@ -117,12 +108,19 @@ pub fn run() {
 
 			let mut kapsules = Kapsules::new(file_manager.read_kapsules().expect("Erreur lors de la lecture du fichier"));
 			if let Some(kapsule_Lancer) = kapsules.get_kapsule_by_id(1) {
-				lancer_application(kapsule_Lancer.get_path_application(), kapsule_Lancer.get_option());
+				lancer_application(
+					kapsule_Lancer.get_path_application().clone(),
+					kapsule_Lancer.get_option().clone()
+				).expect("Erreur lors du lancement de l'application");
 			}
 			Ok(())
 		})
 		.invoke_handler(tauri::generate_handler![
 			// Place ici les fonctions décorées de #[tauri::command] si tu en as
+			obetenir_toutes_les_kapsules,
+			obetenir_kapsule_par_id,
+			obetenir_toutes_les_applications,
+			lancer_application
 		])
 		.run(tauri::generate_context!())
 		.expect("Erreur lors du lancement");

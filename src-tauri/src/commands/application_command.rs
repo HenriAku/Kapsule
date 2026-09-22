@@ -5,24 +5,26 @@ use windows::Win32::UI::Shell::ShellExecuteW;
 use windows::Win32::UI::WindowsAndMessaging::SW_SHOW;
 
 #[tauri::command]
-pub fn lancer_application(path_application: &[String], option: &[String]) {
-	for (i, chemin_cible) in path_application.iter().enumerate() 
-	{
+pub fn lancer_application(
+	path_application: Vec<String>,
+	option: Vec<String>,
+) -> Result<(), String> {
+	for (i, chemin_cible) in path_application.iter().enumerate() {
 		let argument_raw = option.get(i).map(|s| s.as_str()).unwrap_or("default");
 
-		// Encodage de l'opération
+		// Encodage de l'opération ("open")
 		let operation: Vec<u16> = OsStr::new("open")
 			.encode_wide()
 			.chain(std::iter::once(0))
 			.collect();
 
-		// Encodage du chemin de l'application
+		// Encodage du chemin du fichier / exécutable
 		let file: Vec<u16> = OsStr::new(chemin_cible)
 			.encode_wide()
 			.chain(std::iter::once(0))
 			.collect();
 
-		// Préparation et maintien en mémoire des arguments pour éviter l'Access Violation
+		// Préparation et maintien en mémoire des arguments
 		let parameters_opt: Option<Vec<u16>> = if argument_raw != "default" && !argument_raw.is_empty() {
 			Some(
 				OsStr::new(argument_raw)
@@ -34,7 +36,7 @@ pub fn lancer_application(path_application: &[String], option: &[String]) {
 			None
 		};
 
-		// Extraction sécurisée du PCWSTR
+		// Extraction du pointeur PCWSTR
 		let param_ptr = match &parameters_opt {
 			Some(p) => PCWSTR(p.as_ptr()),
 			None => PCWSTR::null(),
@@ -51,4 +53,6 @@ pub fn lancer_application(path_application: &[String], option: &[String]) {
 			);
 		}
 	}
+
+	Ok(())
 }

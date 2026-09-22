@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 use crate::models::kapsule::Kapsule;
+use std::sync::Mutex;
+use tauri::State;
 
 #[derive(Debug)]
 /**
@@ -68,25 +70,6 @@ impl Kapsules
 	}
 
 	/**
-	 * Récupère les Kapsules par un tag spécifique
-	 */
-	pub fn get_kapsules_by_tag(&mut self, tag: &str) -> Vec<&mut Kapsule>
-	{
-		self.tab_kapsule
-			.iter_mut()
-			.filter(|kapsule| kapsule.get_tag().contains(&tag.to_string()))
-			.collect()
-	}
-
-	/**
-	 * Récupère la Kapsule utiliser recament activation
-	 */
-	pub fn get_kapsule_by_activation(&mut self) -> Option<&mut Kapsule> 
-	{
-		self.tab_kapsule.iter_mut().find(|kapsule| kapsule.get_activation() == true)
-	}
-
-	/**
 	 * Ajouter une Kapsule à la liste des Kapsules
 	 */
 	fn add_kapsule(&mut self, kapsule: Kapsule)
@@ -95,3 +78,21 @@ impl Kapsules
 	}
 }
 
+#[tauri::command]
+pub fn obetenir_toutes_les_kapsules(
+	state: State<'_, Mutex<Kapsules>>,
+) -> Result<Vec<Kapsule>, String> {
+	// On verrouille l'accès au Mutex pour récupérer l'instance de Kapsules
+	let kapsules = state.lock().map_err(|e| e.to_string())?;
+	Ok(kapsules.get_tab_kapsule().clone())
+}
+
+#[tauri::command]
+pub fn obetenir_kapsule_par_id(
+	id: usize,
+	state: State<'_, Mutex<Kapsules>>,
+) -> Result<Option<Kapsule>, String> {
+	// On verrouille l'accès au Mutex en mode mutable
+	let mut kapsules = state.lock().map_err(|e| e.to_string())?;
+	Ok(kapsules.get_kapsule_by_id(id).cloned())
+}
