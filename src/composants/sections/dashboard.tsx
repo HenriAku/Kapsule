@@ -1,4 +1,3 @@
-import { SousTitre } from "../essentiel/sousTitre";
 import { KapsulesSection } from "../kapsule/kapsulesSection";
 import { Conteneur } from "../essentiel/conteneur";
 
