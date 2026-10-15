@@ -19,6 +19,8 @@ use crate::commands::application_command::lancer_application;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
 	tauri::Builder::default()
+		.plugin(tauri_plugin_updater::Builder::new().build()) // Ajout du plugin de mise à jour
+		.plugin(tauri_plugin_process::init()) // Ajout du plugin de gestion des processus
 		.setup(|app| {
 			// Récupère le chemin vers le dossier AppData de l'application
 			let app_dir = app.path().app_data_dir().expect("Dossier AppData introuvable");
