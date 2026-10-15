@@ -36,6 +36,7 @@
   },
   "plugins": {
     "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDczRTdGNzIzRUFFMDE1QkYKUldTL0ZlRHFJL2ZuYzQrcTJRTVBvRjA1NmcxZ3JTVENHS2wyRHNTR0JLVEhaMWlmVGhWMm4xUEwK",
       "endpoints": [
         "https://github.com/HenriAku/Kapsule/releases/latest/download/latest.json"
       ]
