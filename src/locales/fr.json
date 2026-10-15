@@ -1,0 +1,55 @@
+{
+  "navBar": {
+    "tableauDeBord": "Tableau de bord",
+    "kapsules": "Kapsules",
+    "nouvelleKapsule": "Nouvelle Kapsule",
+    "agenda": "Agenda",
+    "parametres": "Paramètres"
+  },
+  "Kapsule": {
+    "titre1": "Tableau de bord",
+    "titre2": "Kapsules",
+    "sousTitre1": "Kapsule recente",
+    "sousTitre2": "Kapsules",
+    "options": "Tout",
+    "filtrer": "filtré par :",
+    "tacheSingulier": "Tâche liée :",
+    "tachePluriel": "Tâches liées :",
+    "voirPlus": "Voir plus"
+  },
+  "Formulaire": {
+    "titre": "Nouvelle Kapsule",
+    "ajouterTag": "Ajouter un tag :",
+    "btnAjouterTag": "Ajouter",
+    "ajouterOption": "Ajouter une option :",
+    "ajouterApp": "Ajouter une application :",
+    "creer": "Créer",
+    "selectionnerApp": "Sélectionnez une application",
+    "placeholderOption": "https://... ou C:/...",
+    "nomKapsule": "Nom Kapsule :",
+    "placeholder": "Entrez le nom de votre Kapsule",
+    "loadingBtn": "Création en cours...",
+    "favorite": "Ajouter au favori :",
+    "detailsKapsule": "Détails de la Kapsule",
+    "ApplicationsOptions": "Ajouter des applications & options",
+    "tags": "Ajouter des tags",
+    "descriptionTags": "Ajoutez au minimum un tag à votre Kapsule pour la retrouver facilement plus tard."
+  },
+  "Setting": {
+    "titre": "Paramètres",
+    "descriptionTheme": "Changez le thème de l'application :",
+    "descriptionLangue": "Changez la langue de l'application :",
+    "textBtnThememode1": "Mode Clair",
+    "textBtnThememode2": "Mode Sombre"
+  },
+  "ModalRemove": {
+    "description": "Êtes-vous sûr de vouloir supprimer cette Kapsule ? Cette action est irréversible.",
+    "btnSupprimer": "Supprimer",
+    "btnAnnuler": "Annuler"
+  },
+  "ModalEdit": {
+    "titreEdit": "Modifier la Kapsule",
+    "btnEditer": "Modifier",
+    "btnAnnuler": "Annuler"
+  }
+}

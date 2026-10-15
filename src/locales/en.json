@@ -1,0 +1,55 @@
+{
+  "navBar": {
+    "tableauDeBord": "Dashboard",
+    "kapsules": "Kapsules",
+    "nouvelleKapsule": "New Kapsule",
+    "agenda": "Agenda",
+    "parametres": "Settings"
+  },
+  "Kapsule": {
+    "titre1": "Dashboard",
+    "titre2": "Kapsules",
+    "sousTitre1": "Recent Kapsule",
+    "sousTitre2": "Kapsule",
+    "options": "All",
+    "filtrer": "filtered by :",
+    "tacheSingulier": "Task related :",
+    "tachePluriel": "Tasks related :",
+    "voirPlus": "See more"
+  },
+  "Formulaire": {
+    "titre": "New Kapsule",
+    "ajouterTag": "Add a tag :",
+    "btnAjouterTag": "Add",
+    "ajouterApp": "Add an application :",
+    "ajouterOption": "Add an option :",
+    "creer": "Create",
+    "selectionnerApp": "Select an application",
+    "placeholderOption": "https://... or C:/...",
+    "nomKapsule": "Name Kapsule :",
+    "placeholder": "Enter the name of your Kapsule",
+    "loadingBtn": "Creating...",
+    "favorite": "Add to favorite :",
+    "detailsKapsule": "Kapsule details",
+    "ApplicationsOptions": "Add applications & options",
+    "tags": "Add tags",
+    "descriptionTags": "Add at least one tag to your Kapsule to easily find it later."
+  },
+  "Setting": {
+    "titre": "Settings",
+    "descriptionTheme": "Change the application theme :",
+    "descriptionLangue": "Change the application language :",
+    "textBtnThememode1": "Light mode",
+    "textBtnThememode2": "Dark mode"
+  },
+  "ModalRemove": {
+    "description": "Are you sure you want to delete this Kapsule ? This action cannot be undone.",
+    "btnSupprimer": "Delete",
+    "btnAnnuler": "Cancel"
+  },
+  "ModalEdit": {
+    "titreEdit": "Edit Kapsule",
+    "btnEditer": "Edit",
+    "btnAnnuler": "Cancel"
+  }
+}

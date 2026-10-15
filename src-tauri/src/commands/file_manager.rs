@@ -1,101 +1,79 @@
-use std::fs::{File, OpenOptions};
+use std::fs::{self, File, OpenOptions};
 use std::io::{self, Write, BufReader, BufRead};
 use std::path::PathBuf;
 
 use crate::models::kapsule::Kapsule;
 
-pub struct FileManager 
-{
-	path: PathBuf,
+pub struct FileManager {
+    path: PathBuf,
 }
 
 impl FileManager {
-	/**
-	 * Crée une nouvelle instance de FileManager avec le chemin du fichier spécifié
-	 */
-	pub fn new(filepath: &str) -> Self {
-		Self 
-		{
-			path: PathBuf::from(filepath),
-		}
-	}
-	
-	/**
-	 * Ajoute du texte à la fin du fichier sans écraser l'existant
-	 */
-	pub fn append_kapsule(&self, kapsule: Kapsule) -> io::Result<()> 
-	{
-		let mut file = OpenOptions::new()
-			.create(true)
-			.append(true)
-			.open(&self.path)?;
+    /// Récupère automatiquement AppData et y joint le nom du fichier passé en paramètre
+    pub fn new(filename: &str) -> Self {
+        // 1. On récupère le chemin vers AppData/Roaming (sous Windows)
+        let mut full_path = match dirs::data_dir() {
+            Some(path) => path,
+            None => {
+                // Secours sous Windows si dirs n'est pas utilisé :
+                let appdata_env = std::env::var("APPDATA").unwrap_or_else(|_| ".".to_string());
+                PathBuf::from(appdata_env)
+            }
+        };
 
-		let content = format!(
-			"{{\"id\": {}, \"name\": \"{}\", \"application\": {:?}, \"path_application\": {:?}, \"option\": {:?}, \"tag\": {:?}, \"activation\": {}, \"favorite\": {}, \"tache\": {:?}}}\n",
-			kapsule.get_id(),
-			kapsule.get_name(),
-			kapsule.get_application(),
-			kapsule.get_path_application(),
-			kapsule.get_option(),
-			kapsule.get_tag(),
-			kapsule.get_activation(),
-			kapsule.get_favorite(),
-			kapsule.get_tache()
-		);
+        // 2. On crée le sous-dossier de ton application dans AppData s'il n'existe pas
+        full_path.push("Kapsule"); // <-- Change "TonNomDApp" par le nom de ton projet
+        let _ = fs::create_dir_all(&full_path);
 
-		file.write_all(content.as_bytes())?;
-		Ok(())
-	}
+        // 3. On joint le nom du fichier ("kapsules.json")
+        full_path.push(filename);
 
-	pub fn update_kapsule(&self, kapsules: &[Kapsule]) -> io::Result<()> 
-	{
-		let mut file = File::create(&self.path)?;
+        Self {
+            path: full_path,
+        }
+    }
 
-		let mut content = String::new();
+    pub fn append_kapsule(&self, kapsule: &Kapsule) -> io::Result<()> {
+        let mut file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&self.path)?;
 
-		for kapsule in kapsules.iter() {
-			content.push_str(&format!(
-				"{{\"id\": {}, \"name\": \"{}\", \"application\": {:?}, \"path_application\": {:?}, \"option\": {:?}, \"tag\": {:?}, \"activation\": {}, \"favorite\": {}, \"tache\": {:?}}}\n",
-				kapsule.get_id(),
-				kapsule.get_name(),
-				kapsule.get_application(),
-				kapsule.get_path_application(),
-				kapsule.get_option(),
-				kapsule.get_tag(),
-				kapsule.get_activation(),
-				kapsule.get_favorite(),
-				kapsule.get_tache()
-			));
-		}
-		file.write_all(content.as_bytes())?;
+        let content = serde_json::to_string(kapsule)
+            .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
 
-		Ok(())
-	}
+        writeln!(file, "{}", content)?;
+        Ok(())
+    }
 
-	/**
-	 * Lit le fichier et retourne un Vec<Kapsule> en séparant toutes les lignes
-	 */
-	pub fn read_kapsules(&self) -> io::Result<Vec<Kapsule>> {
-		let file = File::open(&self.path)?;
-		let reader = BufReader::new(file);
+    pub fn update_kapsule(&self, kapsules: &[Kapsule]) -> io::Result<()> {
+        let mut file = File::create(&self.path)?;
 
-		let mut kapsules = Vec::new();
+        for kapsule in kapsules {
+            let line = serde_json::to_string(kapsule)
+                .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
+            writeln!(file, "{}", line)?;
+        }
 
-		// Parcourt le fichier ligne par ligne
-		for line in reader.lines() {
-			let line_text = line?;
-			
-			// Ignore les lignes vides
-			if line_text.trim().is_empty() { continue; }
+        Ok(())
+    }
 
-			// Convertit le texte JSON de la ligne en structure Kapsule
-			match serde_json::from_str::<Kapsule>(&line_text) 
-			{
-				Ok(kapsule) => kapsules.push(kapsule),
-				Err(err) => eprintln!("Erreur lors du parsing d'une ligne : {}", err),
-			}
-		}
+    pub fn read_kapsules(&self) -> io::Result<Vec<Kapsule>> {
+        let file = File::open(&self.path)?;
+        let reader = BufReader::new(file);
 
-		Ok(kapsules)
-	}
+        let mut kapsules = Vec::new();
+
+        for line in reader.lines() {
+            let line_text = line?;
+            if line_text.trim().is_empty() { continue; }
+
+            match serde_json::from_str::<Kapsule>(&line_text) {
+                Ok(kapsule) => kapsules.push(kapsule),
+                Err(err) => eprintln!("Erreur lors du parsing : {}", err),
+            }
+        }
+
+        Ok(kapsules)
+    }
 }
