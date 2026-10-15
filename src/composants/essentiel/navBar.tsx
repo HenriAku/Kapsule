@@ -10,7 +10,7 @@ export const Navbar = () => {
 			<nav className="shadow-md z-50 transition-all duration-300 flex flex-col pl-5 pt-10 h-full">
 				<div>
 					<h1 className="text-2xl lg:text-4xl md:text-3xl font-bold hidden md:inline">
-						KAPSULE2
+						KAPSULE
 					</h1>
 					<ul className="font-bold md:text-2xl space-y-7 mt-20">
 						<ItemNavBar
