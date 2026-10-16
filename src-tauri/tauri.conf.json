@@ -24,6 +24,7 @@
     }
   },
   "bundle": {
+    "createUpdaterArtifacts": true,
     "active": true,
     "targets": "all",
     "icon": [
@@ -36,10 +37,13 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDczRTdGNzIzRUFFMDE1QkYKUldTL0ZlRHFJL2ZuYzQrcTJRTVBvRjA1NmcxZ3JTVENHS2wyRHNTR0JLVEhaMWlmVGhWMm4xUEwK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDU1OUIxNUIzOTc1RkZEODkKUldTSi9WK1hzeFdiVlhqUW1XZ0lvUjMySGM5ZzM4cUJzbGFUbzRub2cxRFBzZU5iUTVlMmFrRksK",
       "endpoints": [
         "https://github.com/HenriAku/Kapsule/releases/latest/download/latest.json"
-      ]
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }

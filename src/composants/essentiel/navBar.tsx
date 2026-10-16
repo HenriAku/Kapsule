@@ -2,6 +2,7 @@
 
 import { ItemNavBar } from "./itemNavBar";
 import { useTranslation } from "react-i18next";
+import {UpdateButton} from "./updateButton";
 
 export const Navbar = () => {
 	const { t } = useTranslation();
@@ -38,6 +39,7 @@ export const Navbar = () => {
 							icon="/images/settings.svg"
 							link="/settings"
 						/>
+						<UpdateButton />
 					</ul>
 				</div>
 			</nav>
