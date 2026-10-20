@@ -31,50 +31,13 @@ pub fn run() {
 
 			let file_manager = FileManager::new(filepath_str);
 
-			// Charger les capsules existantes ou créer les capsules de test si le fichier est vide
-			let initial_kapsules_list = match file_manager.read_kapsules() {
-				Ok(list) if !list.is_empty() => list,
-				_ => {
-					// Si le fichier n'existe pas ou est vide, on initialise avec tes données de test
-					let kapsule1 = Kapsule::new(
-						1,
-						"Development web Fleuriste".to_string(), 
-						vec!["File Explorer".to_string(), "notepad".to_string()], 
-						vec!["C:\\Users\\rouge\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk".to_string(), "notepad.exe".to_string()],
-						vec!["C:\\Users\\rouge\\OneDrive\\Documents".to_string(), "default".to_string()],
-						vec!["Ent".to_string(), "Dev".to_string()], 
-						false, 
-						true, 
-						vec!["Faire navbar".to_string(), "methode de vente".to_string()]
-					);
-					let kapsule2 = Kapsule::new(
-						2, // ID ajusté à 2
-						"Dev portfolio".to_string(), 
-						vec!["Firefox".to_string(), "Discord".to_string()], 
-						vec!["C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Firefox.lnk".to_string(), "C:\\Users\\rouge\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk".to_string()],
-						vec!["https://www.youtube.com/".to_string(), "default".to_string()],
-						vec!["Perso".to_string(), "Dev".to_string()], 
-						false, 
-						false, 
-						vec!["Creation des card projet".to_string(), "Ajouter PP".to_string()]
-					);
-					let kapsule3 = Kapsule::new(
-						3,
-						"Development web Ecommerce".to_string(), 
-						vec!["File Explorer".to_string(), "Discord".to_string()], 
-						vec!["C:\\Users\\rouge\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk".to_string(), "C:\\Users\\rouge\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk".to_string()], 
-						vec!["C:\\Users\\rouge\\OneDrive\\Documents\\Document Inportant.txt".to_string(), "default".to_string()],
-						vec!["Dev".to_string(), "Ent".to_string()], 
-						true, 
-						false, 
-						vec!["ajout panier".to_string(), "Api stipe".to_string()]
-					);
-
-					let list = vec![kapsule1, kapsule2, kapsule3];
-					let _ = file_manager.update_kapsule(&list);
-					list
-				}
-			};
+			// Charger les capsules existantes
+			let initial_kapsules_list = file_manager
+				.read_kapsules()
+				.unwrap_or_else(|err| {
+					eprintln!("Erreur lors du chargement des kapsules : {err}");
+					Vec::new()
+				});
 
 			// ⚠️ ÉTAPE CLÉ MANQUANTE :
 			// On enregistre l'état global partagé dans Tauri pour qu'il soit accessible par vos @tauri::command

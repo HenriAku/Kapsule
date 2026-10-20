@@ -2,7 +2,6 @@
 
 import { ItemNavBar } from "./itemNavBar";
 import { useTranslation } from "react-i18next";
-import {UpdateButton} from "./updateButton";
 
 export const Navbar = () => {
 	const { t } = useTranslation();
@@ -10,8 +9,8 @@ export const Navbar = () => {
 		<div className="sm:w-15 md:w-45 lg:w-50 w-15 h-screen sticky top-0">
 			<nav className="shadow-md z-50 transition-all duration-300 flex flex-col pl-5 pt-10 h-full">
 				<div>
-					<h1 className="text-2xl lg:text-4xl md:text-3xl font-bold hidden md:inline">
-						KAPSULE2
+					<h1 className="text-2xl lg:text-4xl md:text-3xl font-bold italic hidden md:inline font">
+						KAPSULE
 					</h1>
 					<ul className="font-bold md:text-2xl space-y-7 mt-20">
 						<ItemNavBar
@@ -39,7 +38,6 @@ export const Navbar = () => {
 							icon="/images/settings.svg"
 							link="/settings"
 						/>
-						<UpdateButton />
 					</ul>
 				</div>
 			</nav>

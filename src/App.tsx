@@ -5,8 +5,19 @@ import Kapsules from "./composants/sections/kapsule";
 import Dashboard from "./composants/sections/dashboard";
 import FormKapsule from "./composants/sections/formKapsule";
 import Setting from "./composants/sections/setting";
+import { checkForUpdates } from "./utils/updater";
+import { useEffect, useRef } from "react";
 
 export default function App() {
+	const updateCheckStarted = useRef(false);
+
+	useEffect(() => {
+		if (updateCheckStarted.current) return;
+
+		updateCheckStarted.current = true;
+		void checkForUpdates();
+	}, []);
+
 	return (
 		<div className="min-h-screen bg-[#171633] dark:bg-[#0F0E26] text-slate-100">
 			<HashRouter>

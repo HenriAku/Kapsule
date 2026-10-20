@@ -7,7 +7,7 @@ import {ThemeProvider} from "next-themes";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<ThemeProvider attribute="class" enableSystem defaultTheme="system">
+		<ThemeProvider attribute="class" enableSystem defaultTheme="light">
 			<ContenaireProvider>
 				<App />
 			</ContenaireProvider>

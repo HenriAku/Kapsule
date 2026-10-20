@@ -59,7 +59,7 @@ export const KapsulesSection = ({ grid }: { grid: number }) => {
 					{grid === 2 && (
 						<Link
 							to="/kapsule"
-							className="pt-7 pl-5 text-black dark:text-white text-lg flex flex-row items-center gap-5"
+							className="pt-7 pl-5 text-black dark:text-white text-lg flex flex-row items-center gap-5 underline"
 						>
 							{t("Kapsule.voirPlus")}
 						</Link>

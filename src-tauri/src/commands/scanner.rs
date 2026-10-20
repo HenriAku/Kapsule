@@ -99,6 +99,12 @@ impl AppScanner {
 			a.get_name().to_lowercase().cmp(&b.get_name().to_lowercase())
 		});
 
+		// --- 4. ENLEVER LES DOUBLONS ---
+		// Supprime les doublons de la liste (en comparant les noms)
+		applications.get_tab_applications_mut().dedup_by(|a, b| {
+			a.get_name().to_lowercase() == b.get_name().to_lowercase()
+		});
+
 		applications.into_inner()
 	}
 }
