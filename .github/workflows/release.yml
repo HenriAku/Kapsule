@@ -36,8 +36,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         with:
-          tagName: app-v1.0.2
-          releaseName: "Application v1.0.2"
+          tagName: app-v1.0.4
+          releaseName: "Application v1.0.4"
           releaseBody: "Nouvelle version de l'application."
           releaseDraft: true
           prerelease: false

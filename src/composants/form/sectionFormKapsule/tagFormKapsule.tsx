@@ -36,7 +36,7 @@ export const TagFormKapsule = ({
 				placeholderInput={"tag"}
 				onChangeInput={(e) => setCurrentTag(e.target.value)}
 				disabledInput={false}
-				requiredInput={true}
+				requiredInput={false}
 				onClickBtn={handleAddTag}
 				textBtn={t("Formulaire.btnAjouterTag")}
 			/>

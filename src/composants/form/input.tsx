@@ -24,7 +24,11 @@ export default function Input({
 		<div className="mb-5">
 
 			<label className="block mb-1 text-black dark:text-white">
-				{required && <span className="text-red-500">*</span>} {label}
+				{(required || label?.toLowerCase().includes("tag")) && (
+					<span className="text-red-500">*</span>
+				)}
+				{" "}
+				{label || <span className="text-red-500">*</span>}
 			</label>
 
 			<input
