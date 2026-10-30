@@ -37,7 +37,7 @@ export const AppFormKapsule = ({
 	const { t } = useTranslation();
 
 	return (
-		<ContenaireFormulaire text={t("Formulaire.applicationsOptions")}>
+		<ContenaireFormulaire text={t("Formulaire.ApplicationsOptions")}>
 			<label
 				htmlFor="application"
 				className="block font-medium text-black dark:text-white"
