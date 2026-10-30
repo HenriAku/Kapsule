@@ -2,6 +2,7 @@ import { TitreSection } from "../essentiel/titreSection";
 import { useTranslation } from "react-i18next";
 import SelectLangue from "../setting/selectLangue";
 import ButtonTheme from "../setting/buttonTheme";
+import AutostartSettings from "../setting/autostartSettings";
 import { Conteneur } from "../essentiel/conteneur";
 
 export default function Setting() {
@@ -14,6 +15,7 @@ export default function Setting() {
 				<div className="flex flex-col gap-4 mt-4 ml-0 sm:ml-4">
 					<SelectLangue />
 					<ButtonTheme />
+					<AutostartSettings />
 				</div>
 			</div>
 		</Conteneur>

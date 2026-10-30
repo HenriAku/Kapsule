@@ -39,7 +39,8 @@ export default function Input({
 				onChange={onChange}
 				required={required}
 				disabled={disabled}
-				className="border rounded-4xl border-blue-900 hover:border-blue-800 w-full px-3 py-2 dark:bg-white text-black"
+				className="border rounded-4xl border-blue-900 hover:border-blue-800 
+					w-full px-3 py-2 dark:bg-white text-black"
 				min={0}
 			/>
 

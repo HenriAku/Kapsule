@@ -1,5 +1,5 @@
 use std::fs::{self, File, OpenOptions};
-use std::io::{self, Write, BufReader, BufRead};
+use std::io::{self, BufRead, BufReader, Write};
 use std::path::PathBuf;
 
 use crate::models::kapsule::Kapsule;
@@ -28,9 +28,7 @@ impl FileManager {
         // 3. On joint le nom du fichier ("kapsules.json")
         full_path.push(filename);
 
-        Self {
-            path: full_path,
-        }
+        Self { path: full_path }
     }
 
     pub fn append_kapsule(&self, kapsule: &Kapsule) -> io::Result<()> {
@@ -66,7 +64,9 @@ impl FileManager {
 
         for line in reader.lines() {
             let line_text = line?;
-            if line_text.trim().is_empty() { continue; }
+            if line_text.trim().is_empty() {
+                continue;
+            }
 
             match serde_json::from_str::<Kapsule>(&line_text) {
                 Ok(kapsule) => kapsules.push(kapsule),

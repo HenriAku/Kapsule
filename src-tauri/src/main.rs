@@ -4,7 +4,6 @@
 use std::fs;
 use tauri::Manager;
 
-fn main() 
-{
-	kapsule_lib::run()
+fn main() {
+    kapsule_lib::run()
 }
