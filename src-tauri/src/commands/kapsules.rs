@@ -86,23 +86,30 @@ impl Kapsules
 		let index_cible = self.tab_kapsule.iter().position(|k| k.get_id() == id)
 			.ok_or_else(|| format!("Kapsule avec l'ID {} non trouvée", id))?;
 
-		let new_recent_state = !self.tab_kapsule[index_cible].get_activation();
-		self.tab_kapsule[index_cible].set_activation(new_recent_state);
+		// Si la kapsule ciblée est déjà active, on ne fait rien
+		if !self.tab_kapsule[index_cible].get_activation() == true {
+			
+			let new_recent_state = !self.tab_kapsule[index_cible].get_activation();
+			self.tab_kapsule[index_cible].set_activation(new_recent_state);
 
-		// 2. Si la kapsule devient active, on désactive les autres (ou on gère l'ancienne kapsule récente)
-		// On cherche s'il y avait une autre kapsule active (récente)
-		if let Some(index_old) = self.tab_kapsule.iter().position(|k| k.get_activation() && k.get_id() != id) {
-			self.tab_kapsule[index_old].set_activation(false);
+			// 2. Si la kapsule devient active, on désactive les autres (ou on gère l'ancienne kapsule récente)
+			// On cherche s'il y avait une autre kapsule active (récente)
+			if let Some(index_old) = self.tab_kapsule.iter().position(|k| k.get_activation() && k.get_id() != id) {
+				self.tab_kapsule[index_old].set_activation(false);
+			}
+
+			// On clone la kapsule modifiée pour la retourner
+			let kapsule_modifier = self.tab_kapsule[index_cible].clone();
+
+			FileManager::new("kapsules.json")
+				.update_kapsule(&self.tab_kapsule)
+				.map_err(|e| format!("Erreur fichier : {}", e))?;
+		
+			Ok(Some(kapsule_modifier))
+		} else {
+			// Si la kapsule ciblée est déjà active, on ne fait rien
+			Ok(None)
 		}
-
-		// On clone la kapsule modifiée pour la retourner
-		let kapsule_modifier = self.tab_kapsule[index_cible].clone();
-
-		FileManager::new("kapsules.json")
-			.update_kapsule(&self.tab_kapsule)
-			.map_err(|e| format!("Erreur fichier : {}", e))?;
-	
-		Ok(Some(kapsule_modifier))
 	}
 
 
