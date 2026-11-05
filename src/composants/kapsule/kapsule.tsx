@@ -21,7 +21,16 @@ export const Kapsule = ({
 	const nbApplications = Kapsule.application.length;
 
 	return (
-		<div>
+		<div onDoubleClick={async () =>
+							{
+								await toggleLancement(
+									Kapsule.path_application,
+									Kapsule.option,
+									Kapsule.id
+								);
+								onRefresh();
+							}
+						}>
 			<div
 				className={`bg-[#262378] dark:bg-[#262378] dark:border-2 dark:border-[#3B37AD]
 							text-white flex flex-col pl-5 pr-5 pb-2 pt-2 my-3 hover:scale-[1.03] transition-transform duration-300

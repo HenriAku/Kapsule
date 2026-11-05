@@ -38,6 +38,7 @@
   "Setting": {
     "titre": "Paramètres",
     "descriptionTheme": "Changez le thème de l'application :",
+    "descriptionAutostart": "Lancer Kapsule au démarrage de Windows :",
     "descriptionLangue": "Changez la langue de l'application :",
     "textBtnThememode1": "Mode Clair",
     "textBtnThememode2": "Mode Sombre"

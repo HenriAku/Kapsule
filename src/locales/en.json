@@ -39,6 +39,7 @@
     "titre": "Settings",
     "descriptionTheme": "Change the application theme :",
     "descriptionLangue": "Change the application language :",
+    "descriptionAutostart": "Launch Kapsule at Windows startup :",
     "textBtnThememode1": "Light mode",
     "textBtnThememode2": "Dark mode"
   },

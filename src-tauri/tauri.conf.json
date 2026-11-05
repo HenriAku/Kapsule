@@ -12,6 +12,8 @@
   "app": {
     "windows": [
       {
+        "minWidth": 500,
+        "minHeight": 600,
         "title": "kapsule",
         "width": 800,
         "height": 600,

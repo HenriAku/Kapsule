@@ -19,7 +19,7 @@ export default function App() {
 	}, []);
 
 	return (
-		<div className="min-h-screen bg-[#171633] dark:bg-[#0F0E26] text-slate-100">
+		<div className="min-h-screen bg-[#171633] dark:bg-[#171633] text-slate-100">
 			<HashRouter>
 				<div className="flex">
 					<Navbar />

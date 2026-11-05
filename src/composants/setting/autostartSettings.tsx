@@ -6,11 +6,13 @@ import {
 	disable,
 	isEnabled
 } from "@tauri-apps/plugin-autostart";
+import { useTranslation } from "react-i18next";
 
 export default function AutostartSettings() {
 
 	const [enabled, setEnabled] = useState(false);
 	const [loading, setLoading] = useState(true);
+	const { t } = useTranslation();
 
 	// Vérifier si le démarrage automatique est activé
 	useEffect(() => {
@@ -50,16 +52,11 @@ export default function AutostartSettings() {
 	};
 
 	return (
-		<div className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-gray-800">
-
+		<div className="flex items-center gap-2">
 			<div>
-				<h3 className="font-semibold text-black dark:text-white">
-					Démarrage automatique
+				<h3 className="text-black dark:text-white">
+					{t("Setting.descriptionAutostart")}
 				</h3>
-
-				<p className="text-sm text-gray-500">
-					Lancer Kapsule au démarrage de Windows
-				</p>
 			</div>
 
 			<button
@@ -84,7 +81,6 @@ export default function AutostartSettings() {
 					`}
 				/>
 			</button>
-
 		</div>
 	);
 }

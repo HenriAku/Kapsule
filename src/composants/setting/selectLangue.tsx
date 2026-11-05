@@ -15,7 +15,7 @@ export default function SelectLangue() {
 				value={i18n.language}
 				onChange={(e) => i18n.changeLanguage(e.target.value)}
 				className="px-4 py-2 rounded-2xl border border-blue-900 bg-white
-						dark:bg-slate-800 text-black dark:text-white font-medium transition-colors"
+						dark:bg-white text-black font-medium transition-colors"
 			>
 				<option value="fr">Français</option>
 				<option value="en">English</option>
