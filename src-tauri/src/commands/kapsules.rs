@@ -30,7 +30,7 @@ impl Kapsules {
 		Ok(())
 	}
 
-	pub fn update_Kapsule_fav(&mut self, id: usize) -> Result<Option<Kapsule>, String> {
+	pub fn update_kapsule_fav(&mut self, id: usize) -> Result<Option<Kapsule>, String> {
 		let kapsule_modifier = {
 			let kapsule = self
 				.get_kapsule_by_id(id)
@@ -79,7 +79,7 @@ impl Kapsules {
 		}
 	}
 
-	pub fn update_Kapsule_recent(&mut self, id: usize) -> Result<Option<Kapsule>, String> {
+	pub fn update_kapsule_recent(&mut self, id: usize) -> Result<Option<Kapsule>, String> {
 		// 1. On cherche l'index de la kapsule ciblée
 		let index_cible = self
 			.tab_kapsule
@@ -145,7 +145,7 @@ pub fn update_kapsule_fav(
 	state: State<'_, Mutex<Kapsules>>,
 ) -> Result<Option<Kapsule>, String> {
 	let mut kapsules = state.lock().map_err(|e| e.to_string())?;
-	kapsules.update_Kapsule_fav(id)
+	kapsules.update_kapsule_fav(id)
 }
 
 #[tauri::command]
@@ -224,5 +224,5 @@ pub fn update_kapsule_recent(
 	state: State<'_, Mutex<Kapsules>>,
 ) -> Result<Option<Kapsule>, String> {
 	let mut kapsules = state.lock().map_err(|e| e.to_string())?;
-	kapsules.update_Kapsule_recent(id)
+	kapsules.update_kapsule_recent(id)
 }

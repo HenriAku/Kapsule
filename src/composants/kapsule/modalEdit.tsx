@@ -30,7 +30,6 @@ export const ModalEdit = ({
 		currentOption,
 		loadingKapsule,
 		errorKapsule,
-		successMessage,
 		setCurrentTag,
 		setCurrentApp,
 		setCurrentPathApp,
