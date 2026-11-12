@@ -33,7 +33,14 @@
     "detailsKapsule": "Détails de la Kapsule",
     "ApplicationsOptions": "Ajouter des applications & options",
     "tags": "Ajouter des tags",
-    "descriptionTags": "Ajoutez au minimum un tag à votre Kapsule pour la retrouver facilement plus tard."
+    "descriptionTags": "Ajoutez au minimum un tag à votre Kapsule pour la retrouver facilement plus tard.",
+    "LabelNameApp": "Nom de l'application :",
+    "LabelPathApp": "Chemin de l'application :", 
+    "LabelOption": "Option :",
+    "PlaceholderNameApp": "Entrez le nom de l'application",
+    "PlaceholderPathApp": "Entrez le chemin de l'application (C:/firefox.lnk)",
+    "PlaceholderOption": "https://... ou C:/...",
+    "AutreApplicationsOptions": "Ajouter d'autres applications & options"
   },
   "Setting": {
     "titre": "Paramètres",
@@ -52,5 +59,13 @@
     "titreEdit": "Modifier la Kapsule",
     "btnEditer": "Modifier",
     "btnAnnuler": "Annuler"
+  },
+  "ModalShortCut": {
+    "description": "Voulez-vous créer un raccourci pour cette Kapsule ?",
+    "btnAnnuler": "Annuler",
+    "btnAjouter": "Ajouter"
+  },
+  "Version": {
+    "version": "Version Actuelle"
   }
 }

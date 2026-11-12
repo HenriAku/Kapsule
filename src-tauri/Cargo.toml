@@ -1,6 +1,6 @@
 [package]
 name = "kapsule"
-version = "1.0.4"
+version = "1.0.5"
 description = "Application for open space for work and lunch your app in 2 seconde"
 authors = ["Henri Rougeolle"]
 edition = "2021"
@@ -31,7 +31,9 @@ tauri-plugin-process = "2" # Pour redémarrer l'app après la maj
 windows = { version = "0.58", features = [
     "Win32_UI_Shell",
     "Win32_UI_WindowsAndMessaging",
-    "Win32_Foundation"
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_Storage_FileSystem"
 ] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]

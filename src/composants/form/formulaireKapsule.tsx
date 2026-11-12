@@ -15,13 +15,16 @@ export default function FormulaireKapsule(): ReactElement {
 	const {
 		formKapsule,
 		currentTag,
-		setCurrentTag,
 		currentApp,
+		currentPathApp,
 		currentOption,
-		setCurrentOption,
 		loadingKapsule,
 		errorKapsule,
 		successMessage,
+		setCurrentTag,
+		setCurrentApp,
+		setCurrentPathApp,
+		setCurrentOption,
 		handleChange,
 		handleAddTag,
 		handleRemoveTag,
@@ -34,39 +37,46 @@ export default function FormulaireKapsule(): ReactElement {
 	return (
 		<Formulaire onSubmit={handleSubmit}>
 			<div className="w-full flex justify-center">
-				<div className="flex flex-col w-full gap-4 max-w-xl">
-					{/* Détails de base */}
-					<DetailFormKapsule
-						formKapsule={formKapsule}
-						handleChange={handleChange}
-					/>
+				<div className="grid lg:grid-cols-2 grid-cols-1 w-full gap-4 max-w-4xl ">
+					<div className="flex flex-col w-full gap-4 max-w-4xl">
+						{/* Détails de base flex flex-col w-full gap-4 max-w-xl */}
+						<DetailFormKapsule
+							formKapsule={formKapsule}
+							handleChange={handleChange}
+						/>
 
-					{/* Section Tags */}
-					<TagFormKapsule
-						currentTag={currentTag}
-						setCurrentTag={setCurrentTag}
-						handleAddTag={handleAddTag}
-						handleRemoveTag={(tag) => {
-							const index = formKapsule.tag.indexOf(tag);
-							if (index !== -1) handleRemoveTag(index);
-						}}
-						formKapsule={formKapsule}
-					/>
+						{/* Section Tags */}
+						<TagFormKapsule
+							currentTag={currentTag}
+							setCurrentTag={setCurrentTag}
+							handleAddTag={handleAddTag}
+							handleRemoveTag={(tag) => {
+								const index = formKapsule.tag.indexOf(tag);
+								if (index !== -1) handleRemoveTag(index);
+							}}
+							formKapsule={formKapsule}
+						/>
+					</div>
 
 					{/* Section Applications & Options */}
 					<AppFormKapsule
 						currentApp={currentApp}
 						currentOption={currentOption}
+						currentPathApp={currentPathApp}
 						handleAddAppAndOption={handleAddAppAndOption}
 						handleRemoveApp={handleRemoveApp as () => void}
 						formKapsule={formKapsule}
 						setCurrentOption={setCurrentOption}
+						setCurrentApp={setCurrentApp}
+						setCurrentPathApp={setCurrentPathApp}
 						handleSelectAppChange={handleSelectAppChange}
 						applications={applications.map((application) => ({
 							...application,
 							id: String(application.id),
 						}))}
 					/>
+
+				
 				</div>
 			</div>
 			<div className="flex justify-center mt-6">

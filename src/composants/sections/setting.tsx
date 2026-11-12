@@ -4,6 +4,7 @@ import SelectLangue from "../setting/selectLangue";
 import ButtonTheme from "../setting/buttonTheme";
 import AutostartSettings from "../setting/autostartSettings";
 import { Conteneur } from "../essentiel/conteneur";
+import packageJson from "../../../package.json";
 
 export default function Setting() {
 	const { t } = useTranslation();
@@ -16,6 +17,11 @@ export default function Setting() {
 					<SelectLangue />
 					<ButtonTheme />
 					<AutostartSettings />
+					<div className="flex items-center gap-2">
+						<p className="text-black dark:text-white">
+							{t("Version.version")} {packageJson.version}
+						</p>
+					</div>
 				</div>
 			</div>
 		</Conteneur>

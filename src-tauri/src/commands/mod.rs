@@ -3,3 +3,4 @@ pub mod applications;
 pub mod file_manager;
 pub mod kapsules;
 pub mod scanner;
+pub mod short_cut;

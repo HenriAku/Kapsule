@@ -25,13 +25,16 @@ export const ModalEdit = ({
 	const {
 		formKapsule,
 		currentTag,
-		setCurrentTag,
 		currentApp,
+		currentPathApp,
 		currentOption,
-		setCurrentOption,
 		loadingKapsule,
 		errorKapsule,
-		success,
+		successMessage,
+		setCurrentTag,
+		setCurrentApp,
+		setCurrentPathApp,
+		setCurrentOption,
 		handleChange,
 		handleAddTag,
 		handleRemoveTag,
@@ -39,6 +42,7 @@ export const ModalEdit = ({
 		handleAddAppAndOption,
 		handleRemoveApp,
 		handleSubmit,
+		success,
 	} = useFormKapsule(applications, kapsule);
 
 	useEffect(() => {
@@ -84,10 +88,13 @@ export const ModalEdit = ({
 							<AppFormKapsule
 								currentApp={currentApp}
 								currentOption={currentOption}
+								currentPathApp={currentPathApp}
 								handleAddAppAndOption={handleAddAppAndOption}
 								handleRemoveApp={handleRemoveApp as () => void}
 								formKapsule={formKapsule}
 								setCurrentOption={setCurrentOption}
+								setCurrentApp={setCurrentApp}
+								setCurrentPathApp={setCurrentPathApp}
 								handleSelectAppChange={handleSelectAppChange}
 								applications={applications.map(
 									(application) => ({

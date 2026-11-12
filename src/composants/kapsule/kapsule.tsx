@@ -5,6 +5,7 @@ import { Kapsule as KapsuleType } from "../../service/kapsuleService";
 import { useModalKapsule } from "../../hooks/kapsule/useModalKapsule";
 import { ModalRemove } from "./modalRemove";
 import { ModalEdit } from "./modalEdit";
+import {ModalShortCut} from "./modalShortCut";
 
 export const Kapsule = ({
 	Kapsule,
@@ -16,9 +17,16 @@ export const Kapsule = ({
 	onRefresh: () => void;
 }) => {
 	const { isFavorite, toggleFavorite } = useFavorite(Kapsule.favorite);
-	const { isOpenRemove, toggleModalRemove, isOpenEdit, toggleModalEdit } = useModalKapsule();
+	const { 
+		isOpenRemove, toggleModalRemove, 
+		isOpenEdit, toggleModalEdit, 
+		isOpenShortCut, toggleModalShortCut } = useModalKapsule();
 	const { toggleLancement } = useLancement();
 	const nbApplications = Kapsule.application.length;
+	function handleContextMenu(event: React.MouseEvent<HTMLDivElement>) {
+		event.preventDefault();
+		toggleModalShortCut();
+	}
 
 	return (
 		<div onDoubleClick={async () =>
@@ -30,7 +38,9 @@ export const Kapsule = ({
 								);
 								onRefresh();
 							}
-						}>
+						}
+			onContextMenu={handleContextMenu}
+		>
 			<div
 				className={`bg-[#262378] dark:bg-[#262378] dark:border-2 dark:border-[#3B37AD]
 							text-white flex flex-col pl-5 pr-5 pb-2 pt-2 my-3 hover:scale-[1.03] transition-transform duration-300
@@ -109,6 +119,15 @@ export const Kapsule = ({
 					kapsule={Kapsule}
 					isOpen={isOpenEdit}
 					onClose={toggleModalEdit}
+					onRefresh={onRefresh}
+				/>
+			)}
+			{isOpenShortCut && (
+				<ModalShortCut
+					id={Kapsule.id}
+					name={Kapsule.name}
+					isOpen={isOpenShortCut}
+					onClose={toggleModalShortCut}
 					onRefresh={onRefresh}
 				/>
 			)}
